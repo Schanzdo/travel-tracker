@@ -2,14 +2,22 @@ const express = require('express')
 const morgan = require('morgan') //logger
 const helmet = require('helmet')// hide header infos 
 const cors = require('cors')
+const mongoose = require('mongoose')
+
+require('dotenv').config();
 
 const errorHandling = require('./errorHandling');
+
+mongoose.connect(process.env.DATABASE_URL, {
+    useNewUrlParser: true
+}
+);
 
 const app =  express();
 app.use(morgan('common'));
 app.use(helmet())
 app.use(cors({
-    origin: 'https://localhost:3000'
+    origin: process.env.CORS_ORIGIN
 }));
 
 
