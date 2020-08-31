@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const {schema} = mongoose;
+const {Schema} = mongoose;
 
 const stringRequired = {
     type: String,
@@ -39,16 +39,15 @@ const trackEntrySchema = new Schema({
         type: Date,
         min: 0,
         default: Date.now
-    },
-    
-   timestamps: true,
-    
-    
+    },   
+},
+{
+    timestamps: true
 });
 
-const trackEntry = mongoose.model('TrackEntry', trackEntrySchema);
+const TrackEntry = mongoose.model('TrackEntry', trackEntrySchema);
 
-module.exports = trackEntry;
+module.exports = TrackEntry;
 
 /*
 
