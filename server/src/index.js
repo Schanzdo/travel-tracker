@@ -4,14 +4,17 @@ const helmet = require('helmet')// hide header infos
 const cors = require('cors')
 const mongoose = require('mongoose')
 
+const tracks = require('./api/tracks')
 require('dotenv').config();
 
 const errorHandling = require('./errorHandling');
 
 mongoose.connect(process.env.DATABASE_URL, {
-    useNewUrlParser: true
-}
-);
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  
+  
 
 const app =  express();
 app.use(morgan('common'));
@@ -27,7 +30,7 @@ app.get('/', (req, res) => {
     })
 })
 
-
+app.use('/api/tracks', tracks);
 
 app.use(errorHandling.notFound);
 app.use(errorHandling.errorHandler); 
