@@ -14,9 +14,9 @@ mongoose.connect(process.env.DATABASE_URL, {
     useUnifiedTopology: true,
   });
   
-  
-
 const app =  express();
+
+app.use(express.json());
 app.use(morgan('common'));
 app.use(helmet())
 app.use(cors({

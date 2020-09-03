@@ -8,15 +8,14 @@ router.get('/', async (req, res, next) => {
   try {
     const allTracks = await TrackEntry.find();
     res.json(allTracks);
-  } catch (error) {
-      console.log("aa")
+  } catch (error) {     
     next(error);
   }
 });
 
 router.post('/', async (req, res, next) => {
   try {
-    const logEntry = new TrackEntry(req.body);
+    const trackEntry = new TrackEntry(req.body);
     const createdEntry = await trackEntry.save();
     res.json(createdEntry);
   } catch (error) {
