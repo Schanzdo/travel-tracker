@@ -4,6 +4,8 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   
+  color: white;
+
 }
 
 .marker{
@@ -38,4 +40,11 @@ body {
   margin: 0.3rem;
   display: block;
   width: 90%;
+}
+
+.popup-info .mapboxgl-popup-content{
+  background-color: #072B16;
+}
+.mapboxgl-popup-close-button{
+  color:white;
 }
