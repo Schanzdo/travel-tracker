@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import {listTrackEntries} from './ApiCall';
+import {listTrackEntries, deleteTrackEntry} from './ApiCall';
 
 //import {Component} from 'react';
 import ReactMapGL, { Marker, Popup} from 'react-map-gl';
@@ -9,8 +9,9 @@ import { useState,useEffect } from 'react';
 
 import TrackEntryForm from './TrackEntryForm'
 
+const TrashSVG = () => {return(<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>)};
 const MarkerSVG = (zoom) => {
-  console.log("zoom" + JSON.stringify(zoom))
+ 
   return(<svg version="1.1" className="marker" x="0px" y="0px" viewBox="0 0 368.16 368.16"  style={{enableBackground:"new 0 0 368.16 368.16", 
 height: `${8*zoom.zoom}px`,
 width:`${8*zoom.zoom}px`
@@ -48,6 +49,16 @@ const App = () => {
       setTrackEntries(trackEntries);
     }
 
+  const deleteThisEntry = async(entry) => {
+    try{console.log("del entry" + JSON.stringify(entry))
+    const deletedEntry = await deleteTrackEntry(entry);
+    console.log(deletedEntry);
+    setShowInfo({});
+    getTrackEntries();
+    }catch(error){
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     getTrackEntries();
@@ -112,7 +123,7 @@ const App = () => {
         <p>{entry.text} </p>
           {entry.image ? <img src={entry.image}/> : null}
           <p className="date-info">Besucht am: {new Date(entry.startDate).toLocaleDateString()}</p>
-
+          <button onClick={()=> deleteThisEntry(entry)}><TrashSVG/></button>
         </div>
         </Popup>
           ) : null
