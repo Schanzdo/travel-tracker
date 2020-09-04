@@ -26,4 +26,22 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+
+router.delete("/", async (req, res, next) => {
+  try{
+    console.log(`bb${req.headers}${JSON.stringify(req.body)}`)  
+    const trackEntry = new TrackEntry(req.body);
+    const deletedEntry = TrackEntry.deleteOne(trackEntry,
+      function (error) {
+        if (error)  return console.error(error);
+      })
+    console.log("deleted" +  JSON.stringify(deletedEntry.body));
+    res.json("deleted " + trackEntry);
+  }catch(error){
+    console.log(error);
+  }
+})
+
+
+
 module.exports = router;
